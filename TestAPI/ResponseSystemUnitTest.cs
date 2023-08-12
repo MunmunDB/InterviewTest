@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using ResponseSystemAPI.Business;
 
 namespace TestAPI
 {
@@ -6,9 +8,11 @@ namespace TestAPI
     {
         string InputMessagefr1 = "The alarm id from video server number 7 is 10.";
         string InputMessagefr2 = "Alarm id 10 has been received from video server number 7.";
+        ResponseSystem resObj;
         [SetUp]
         public void Setup()
         {
+            resObj = new ResponseSystem();
         }
 
         [Test]
@@ -24,6 +28,13 @@ namespace TestAPI
             //Assert.AreEqual(10, ReadAlarmNumber(InputMessagefr1));
             //Assert.AreEqual(10, ReadAlarmNumber(InputMessagefr2));
             Assert.Pass();
+        }
+        [Test]
+        public void TestText()
+        {
+            Assert.AreEqual(true, resObj.ParseResponse(InputMessagefr1));
+            //Assert.AreEqual(10, ReadAlarmNumber(InputMessagefr2));
+            
         }
     }
 }

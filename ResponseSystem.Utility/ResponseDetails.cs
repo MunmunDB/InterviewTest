@@ -1,8 +1,5 @@
-﻿using System.Transactions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
-using ResponseSystem.Business.Model;
 
 namespace ResponseSystem.Business
 {
@@ -31,7 +28,7 @@ namespace ResponseSystem.Business
         }
       
        
-        public bool ParseResponse( string inputresponse ) {
+        public ResponseDetail ParseResponse( string inputresponse ) {
             try
             {
                 bool isNum= false;
@@ -44,7 +41,7 @@ namespace ResponseSystem.Business
                     isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.serverNoIndex), out _serverNo);
                 }
 
-                return isNum;
+                return new ResponseDetail() { alamNo=_alarmNo, message= inputresponse, serverNo = _serverNo };
                
             }    
             catch ( Exception e ) {

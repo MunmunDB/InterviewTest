@@ -1,7 +1,9 @@
-﻿namespace ResponseSystem.Business
+﻿
+
+namespace ResponseSystem.Business
 {
     public interface IResponseDetails
     {
-        public bool ParseResponse(string inputresponse);
+        public ResponseDetail ParseResponse(string inputresponse);
     }
 }

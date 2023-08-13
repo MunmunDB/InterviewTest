@@ -27,25 +27,22 @@ namespace TestAPI
         [Test]
         public void TestParseFormat_1()
         {
-            Assert.That(resObj.ParseResponse(InputMessagefr1), Is.EqualTo(true));
-            Assert.That(resObj.serverNo, Is.EqualTo(7));
-            Assert.That(resObj.alarmNo, Is.EqualTo(10));
-            
+            var obj = resObj.ParseResponse(InputMessagefr1);
+            Assert.AreEqual(obj.alamNo, 10);
+            Assert.AreEqual(obj.serverNo, 7);
+
         }
         [Test]
         public void TestParseFormat_2()
         {
-            Assert.That(resObj.ParseResponse(InputMessagefr2), Is.EqualTo(true));
-            Assert.That(resObj.serverNo, Is.EqualTo(7));
-            Assert.That(resObj.alarmNo, Is.EqualTo(10));
-
+            var obj = resObj.ParseResponse(InputMessagefr2);
+            Assert.AreEqual(obj.alamNo,10);
+            Assert.AreEqual(obj.serverNo, 7);
         }
         [Test]
         public void TestParseFormat_Wrong()
         {
-            Assert.That(resObj.ParseResponse(InputMessageWrong), Is.EqualTo(true));
-            Assert.That(resObj.serverNo, Is.EqualTo(0));
-            Assert.That(resObj.alarmNo, Is.EqualTo(0));
+            Assert.That(resObj.ParseResponse(InputMessageWrong), Is.SameAs(new ResponseDetail() { message = InputMessageWrong, alamNo = 0, serverNo = 0 }));
         }
 
       

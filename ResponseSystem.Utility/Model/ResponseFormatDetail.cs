@@ -1,4 +1,4 @@
-﻿namespace ResponseSystem.Business.Model
+﻿namespace ResponseSystem.Business
 {
     public class ResponseFormatDetail
     {

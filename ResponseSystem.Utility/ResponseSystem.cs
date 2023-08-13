@@ -5,40 +5,48 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ResponseSystemAPI.Business
 {
-    public static class ResponseFormat {
-       static public string[] customFormat= { "The alarm id from video server number X is Y", "Alarm id Y has been received from video server number X" };
-        public static string Identifier_Alarm = "alarm id";
-        public static string Identifier_Server = "server number";
-
-    }
-    public class  ResponseSystem : IResponseSystem
+    public class ResponseFormatDetail
     {
+        public string Format { get; set; }
+        public  int alamNoIndex {  get; set; }
+        public int serverNoIndex {  get; set; }
+    }
+     public class  ResponseSystem : IResponseSystem
+    {
+        IList<ResponseFormatDetail> formatDetails;
         public string[] customFormat = { "The alarm id from video server number X is Y", "Alarm id Y has been received from video server number X" };
         private readonly ILogger<ResponseSystem> _logger;
         string _responseText;
         int _alarmNo;
         int _serverNo;
+        public int alarmNo { get { return _alarmNo; } }
+        public int serverNo { get { return _serverNo; } }
         public ResponseSystem( ILogger<ResponseSystem> logger)
         {
             
             _logger = logger;
+
+            formatDetails=new List<ResponseFormatDetail>();
+            formatDetails.Add(new ResponseFormatDetail() {  serverNoIndex=0, alamNoIndex = 1, Format = "The alarm id from video server number * is *." });
+            formatDetails.Add(new ResponseFormatDetail() { serverNoIndex = 1, alamNoIndex = 0, Format = "Alarm id * has been received from video server number *." });
         }
-        public ResponseSystem() { }
-
-        public int GetAlarmNo() { return _alarmNo; }
-        public int GetServerNo() { return  (_serverNo); }
-
+      
+       
         public bool ParseResponse( string inputresponse ) {
             try
             {
+                bool isNum= false;
+                var matchedFormat = ValidateFormat(inputresponse);
+                if(matchedFormat is not null)
+                {
+                    var numberValueList = Regex.Split(inputresponse, @"\D+").Where(p => !string.IsNullOrEmpty(p)).Select(a => a);
+
+                    isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.alamNoIndex), out _alarmNo);
+                    isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.serverNoIndex), out _serverNo);
+                }
+
+                return isNum;
                
-                string[] numbers = Regex.Split(inputresponse, @"\D+",RegexOptions.IgnorePatternWhitespace);
-                
-                var isFr1 = Regex.Match(inputresponse, string.Format("The alarm id from video server number {0} is {1}", numbers[1], numbers[2]));
-                var isFr2 = Regex.Match(inputresponse, string.Format("Alarm id {0} has been received from video server number {1}", numbers[2], numbers[1]));
-                _alarmNo = int.Parse( isFr1.Success ? numbers[2] : numbers[1]);
-                _serverNo = int.Parse(isFr1.Success ? numbers[1] : numbers[2]);
-                return isFr1.Success|| isFr2.Success;
             }    
             catch ( Exception e ) {
                 _logger.LogError(e.Message, nameof(ParseResponse));
@@ -47,41 +55,21 @@ namespace ResponseSystemAPI.Business
         
         }
 
-        protected void  ReadAlarmNo()
+        ResponseFormatDetail ValidateFormat(string responseText)
         {
             try
             {
-                var alarmNo = int.Parse( _responseText );
+                responseText =  Regex.Replace(responseText, @"\d{2,}", "*");
+                responseText = Regex.Replace(responseText, @"\d", "*");
+                var matchedFormat = formatDetails.Where(p=>p.Format == responseText).FirstOrDefault<ResponseFormatDetail>();
+                return matchedFormat;
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message, new { _responseText } );
+                _logger.LogError(e.Message, nameof(ValidateFormat));
+                throw e;
             }
         }
-        protected void ReadServerNo()
-        {
-            try
-            {
-                var serveNo = int.Parse(_responseText);
-                if (Regex.IsMatch(_responseText, "^Alarm id"))
-                {
-                    var StartText =  _responseText.Substring(("Alarm id").Length);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.Message, new { _responseText });
-            }
-        }
-        public  string TakeFive(object input) => input switch
-        {
-            string { Length: >= 5 } s => s.Substring(0, 5),
-            string s => s,
-            ICollection<char> { Count: >= 5 } symbols => new string(symbols.Take(5).ToArray()),
-            ICollection<char> symbols => new string(symbols.ToArray()),
-
-            null => throw new ArgumentNullException(nameof(input)),
-            _ => throw new ArgumentException("Not supported input type."),
-        };
+       
     }
 }

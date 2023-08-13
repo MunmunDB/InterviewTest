@@ -21,7 +21,7 @@ namespace TestAPI
         {
             var logger = new Mock<ILogger<ResponseDetails>>();
             var utilObj = new Utility(new Mock<ILogger<Utility>>().Object);
-            resObj = new ResponseDetails(logger.Object, utilObj, testfilepath);
+            resObj = new ResponseDetails(logger.Object, utilObj);
         }
 
         [Test]

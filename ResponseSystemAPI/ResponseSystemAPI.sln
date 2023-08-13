@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponseSystemAPI", "ResponseSystemAPI.csproj", "{9E632E6B-0DE1-4B03-9ABD-4422907F1976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResponseSystemAPI", "ResponseSystemAPI.csproj", "{9E632E6B-0DE1-4B03-9ABD-4422907F1976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAPI", "..\TestAPI\TestAPI.csproj", "{E423C4F4-169F-4945-9201-13AAAB562A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAPI", "..\TestAPI\TestAPI.csproj", "{E423C4F4-169F-4945-9201-13AAAB562A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponseSystem.Business", "..\ResponseSystem.Utility\ResponseSystem.Business.csproj", "{2D56793B-04F5-451A-A05B-D22D9BCE3306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResponseSystem.Business", "..\ResponseSystem.Utility\ResponseSystem.Business.csproj", "{2D56793B-04F5-451A-A05B-D22D9BCE3306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

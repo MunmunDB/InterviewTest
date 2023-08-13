@@ -22,4 +22,10 @@
     <ProjectReference Include="..\ResponseSystem.Utility\ResponseSystem.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestResourceFile\testFormats.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

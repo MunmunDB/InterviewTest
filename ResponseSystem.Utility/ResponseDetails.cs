@@ -2,33 +2,32 @@
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
+using ResponseSystem.Business.Model;
 
-namespace ResponseSystemAPI.Business
+namespace ResponseSystem.Business
 {
-    public class ResponseFormatDetail
-    {
-        public string Format { get; set; }
-        public  int alamNoIndex {  get; set; }
-        public int serverNoIndex {  get; set; }
-    }
-     public class  ResponseSystem : IResponseSystem
+
+    public class  ResponseDetails : IResponseDetails
     {
         IList<ResponseFormatDetail> formatDetails;
-        public string[] customFormat = { "The alarm id from video server number X is Y", "Alarm id Y has been received from video server number X" };
-        private readonly ILogger<ResponseSystem> _logger;
+        IUtility _util;
+        private readonly ILogger<ResponseDetails> _logger;
         string _responseText;
         int _alarmNo;
         int _serverNo;
+        
+
         public int alarmNo { get { return _alarmNo; } }
         public int serverNo { get { return _serverNo; } }
-        public ResponseSystem( ILogger<ResponseSystem> logger)
+        public ResponseDetails( ILogger<ResponseDetails> logger, IUtility util, string inputfile)
         {
             
             _logger = logger;
+            _util = util;
+            formatDetails = util.GetFormats(inputfile); // new List<ResponseFormatDetail>();
 
-            formatDetails=new List<ResponseFormatDetail>();
-            formatDetails.Add(new ResponseFormatDetail() {  serverNoIndex=0, alamNoIndex = 1, Format = "The alarm id from video server number * is *." });
-            formatDetails.Add(new ResponseFormatDetail() { serverNoIndex = 1, alamNoIndex = 0, Format = "Alarm id * has been received from video server number *." });
+            //formatDetails.Add(new ResponseFormatDetail() {  serverNoIndex=0, alamNoIndex = 1, Format = "The alarm id from video server number * is *." });
+            //formatDetails.Add(new ResponseFormatDetail() { serverNoIndex = 1, alamNoIndex = 0, Format = "Alarm id * has been received from video server number *." });
         }
       
        

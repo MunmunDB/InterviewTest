@@ -1,4 +1,4 @@
-namespace ResponseSystemAPI
+namespace ResponseSystem
 {
     public class WeatherForecast
     {

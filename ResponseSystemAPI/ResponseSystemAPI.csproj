@@ -14,4 +14,10 @@
     <ProjectReference Include="..\ResponseSystem.Utility\ResponseSystem.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ResourceFile\Formats.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

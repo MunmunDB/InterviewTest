@@ -8,6 +8,6 @@ namespace ResponseSystem.Business
 {
     public interface IUtility
     {
-       public IList<ResponseFormatDetail> GetFormats(string filepath);
+       public IList<ResponseFormatDetail> GetFormats();
     }
 }

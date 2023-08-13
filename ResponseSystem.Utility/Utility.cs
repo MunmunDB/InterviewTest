@@ -10,7 +10,9 @@ namespace ResponseSystem.Business
         private char alarm_Identifier = 'X';
         private char server_Identifier = 'Y';
         private char common_identifier = '*';
-        public Utility(ILogger<Utility> logger) { _logger = logger; }
+        private string _filepath;
+        public Utility(ILogger<Utility> logger , string filepath) { _logger = logger; _filepath = filepath; }
+        public Utility(ILogger<Utility> logger) { _logger = logger; _filepath = Path.Join(Directory.GetCurrentDirectory(), "\\ResourceFile\\Formats.csv"); }
         IList<string> ReadFormatFile(string filepath)
         {
             try
@@ -35,10 +37,10 @@ namespace ResponseSystem.Business
 
 }
 
-        public IList<ResponseFormatDetail> GetFormats(string filepath)
+        public IList<ResponseFormatDetail> GetFormats()
         {
             try { 
-            var strline = ReadFormatFile(filepath);
+            var strline = ReadFormatFile(_filepath);
                 int alarmno_index = 0;
                 int serverNo_index = 0;
             IList<ResponseFormatDetail> returnList = new List<ResponseFormatDetail>();

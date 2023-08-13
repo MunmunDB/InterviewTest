@@ -16,12 +16,12 @@ namespace ResponseSystem.Business
 
         public int alarmNo { get { return _alarmNo; } }
         public int serverNo { get { return _serverNo; } }
-        public ResponseDetails( ILogger<ResponseDetails> logger, IUtility util, string inputfile)
+        public ResponseDetails( ILogger<ResponseDetails> logger, IUtility util)
         {
             
             _logger = logger;
             _util = util;
-            formatDetails = util.GetFormats(inputfile); // new List<ResponseFormatDetail>();
+            formatDetails = util.GetFormats(); // new List<ResponseFormatDetail>();
 
             //formatDetails.Add(new ResponseFormatDetail() {  serverNoIndex=0, alamNoIndex = 1, Format = "The alarm id from video server number * is *." });
             //formatDetails.Add(new ResponseFormatDetail() { serverNoIndex = 1, alamNoIndex = 0, Format = "Alarm id * has been received from video server number *." });

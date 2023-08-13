@@ -19,14 +19,14 @@ namespace TestAPI
         public void Setup()
         {
             var logger = new Mock<ILogger<Utility>>();
-            utilObj = new Utility(logger.Object);
+            utilObj = new Utility(logger.Object, testfilepath);
         }
 
        
         [Test]
         public void TestParseFormat_2()
         {
-            var formatInfo = utilObj.GetFormats(testfilepath);
+            var formatInfo = utilObj.GetFormats();
             Assert.That(formatInfo.Count, Is.GreaterThan(0));
             Assert.That(formatInfo.First().alamNoIndex, Is.GreaterThan(-1));
             Assert.That(formatInfo.First().serverNoIndex, Is.GreaterThan(-1));
@@ -34,7 +34,7 @@ namespace TestAPI
         [Test]
         public void TestParseFormat_Fails()
         {
-            var formatInfo = utilObj.GetFormats(testfilepath);
+            var formatInfo = utilObj.GetFormats();
             Assert.That(formatInfo.Count, Is.EqualTo(0));
             Assert.That(formatInfo.First().alamNoIndex, Is.EqualTo(-1));
             Assert.That(formatInfo.First().serverNoIndex, Is.EqualTo(-1));

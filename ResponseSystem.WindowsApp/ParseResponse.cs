@@ -17,9 +17,20 @@ namespace ResponseSystem.WindowsApp
 
         private void parsebtn_Click(object sender, EventArgs e)
         {
-            resulttxt.Text = _responseDetails.ParseResponse(ResponseTxt.Text).ToString();
+            try
+            {
+
+                var parsedresponseObj = _responseDetails.ParseResponse(ResponseTxt.Text);
+
+                resulttxt.Text = parsedresponseObj is null ? string.Empty : string.Join(',', "Alarm No: ", parsedresponseObj.alamNo, "Server No: ", parsedresponseObj.serverNo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, nameof(ParseResponse));
+
+            }
         }
 
-        
+
     }
 }

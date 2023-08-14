@@ -28,20 +28,25 @@ namespace ResponseSystem.Business
         }
       
        
-        public ResponseDetail ParseResponse( string inputresponse ) {
+        public ResponseDetail? ParseResponse( string inputresponse ) {
             try
             {
                 bool isNum= false;
                 var matchedFormat = ValidateFormat(inputresponse);
-                if(matchedFormat is not null)
+                ResponseDetail? returnValue = null;
+                if (matchedFormat is not null)
                 {
                     var numberValueList = Regex.Split(inputresponse, @"\D+").Where(p => !string.IsNullOrEmpty(p)).Select(a => a);
 
                     isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.alamNoIndex), out _alarmNo);
                     isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.serverNoIndex), out _serverNo);
-                }
 
-                return new ResponseDetail() { alamNo=_alarmNo, message= inputresponse, serverNo = _serverNo };
+                    returnValue = new ResponseDetail() { alamNo = _alarmNo, message = inputresponse, serverNo = _serverNo };
+                }
+                else
+                    returnValue = new ResponseDetail() { message = string.Format( "Invalid format."  };
+
+                return returnValue;
                
             }    
             catch ( Exception e ) {

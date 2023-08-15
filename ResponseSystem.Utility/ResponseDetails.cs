@@ -44,7 +44,7 @@ namespace ResponseSystem.Business
                     returnValue = new ResponseDetail() { alamNo = _alarmNo, message = inputresponse, serverNo = _serverNo };
                 }
                 else
-                    returnValue = new ResponseDetail() { message = string.Format( "Invalid format."  };
+                    returnValue = new ResponseDetail() { message = string.Format("Invalid format.") };
 
                 return returnValue;
                

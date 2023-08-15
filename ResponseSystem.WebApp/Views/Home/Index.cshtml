@@ -1,0 +1,49 @@
+﻿@model ResponseSystem.WebApp.Models.ResponseViewModel
+@{
+
+    ViewData["Title"] = "Home Page";
+
+}
+
+<div class="text-center">
+    <form method="post">
+        <table height="200" width="100%">
+            <tr>
+                <td align="left" width="200px">Response text </td>
+                <td width="400px"><textarea style="width: 100%" name="inputtext" required> </textarea></td>
+                <td align="left"><input style="margin-left: 10px;" type="submit"></td>
+            </tr>
+            @if (!(Model is null))
+            {
+                <tr>
+                    <td align="left" colspan="3">
+                        <span>
+
+                            @Model.ResponseMsg
+                        </span>
+                        <br />
+
+                        @if (@Model.alarmNo is not null)
+                        {
+                            <span>
+                                Alarm No: @Model.alarmNo
+                            </span>
+                        }
+
+                        <br />
+                        @if (@Model.serverNo is not null)
+                        {
+                            <span>
+
+                                Server No: @Model.serverNo
+
+                            </span>
+                        }
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+    </form>
+</div>

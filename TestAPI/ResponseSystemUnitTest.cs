@@ -30,6 +30,7 @@ namespace TestAPI
             var obj = resObj.ParseResponse(InputMessagefr1);
             Assert.AreEqual(obj.alamNo, 10);
             Assert.AreEqual(obj.serverNo, 7);
+            Assert.AreEqual(obj.message, "Parsed successfully.");
 
         }
         [Test]
@@ -38,11 +39,13 @@ namespace TestAPI
             var obj = resObj.ParseResponse(InputMessagefr2);
             Assert.AreEqual(obj.alamNo,10);
             Assert.AreEqual(obj.serverNo, 7);
+            Assert.AreEqual(obj.message, "Parsed successfully.");
         }
         [Test]
         public void TestParseFormat_Wrong()
         {
-            Assert.That(resObj.ParseResponse(InputMessageWrong), Is.SameAs(new ResponseDetail() { message = InputMessageWrong, alamNo = 0, serverNo = 0 }));
+            var obj = resObj.ParseResponse(InputMessageWrong);
+            Assert.AreEqual(obj.message, "Invalid format.");
         }
 
       

@@ -41,7 +41,7 @@ namespace ResponseSystem.Business
                     isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.alamNoIndex), out _alarmNo);
                     isNum = int.TryParse(numberValueList.ElementAt(matchedFormat.serverNoIndex), out _serverNo);
 
-                    returnValue = new ResponseDetail() { alamNo = _alarmNo, message = inputresponse, serverNo = _serverNo };
+                    returnValue = new ResponseDetail() { alamNo = _alarmNo, message = "Parsed successfully.", serverNo = _serverNo };
                 }
                 else
                     returnValue = new ResponseDetail() { message = string.Format("Invalid format.") };
@@ -69,7 +69,7 @@ namespace ResponseSystem.Business
             catch (Exception e)
             {
                 _logger.LogError(e.Message, nameof(ValidateFormat));
-                throw e;
+                return null;
             }
         }
        

@@ -51,6 +51,7 @@ namespace ResponseSystem.Business
                     serverNo_index = alarmno_index == 0 ? 1 : 0;
                     string lineformatted = line.Replace(alarm_Identifier.ToString(), common_identifier.ToString());
                     lineformatted = lineformatted.Replace(server_Identifier.ToString(), common_identifier.ToString());
+                    lineformatted = lineformatted.ToLower().Trim().TrimEnd('.');
                     if (alarmno_index >-1 && serverNo_index >-1)
                     { 
                         returnList.Add(new ResponseFormatDetail() { Format = lineformatted, alamNoIndex = alarmno_index, serverNoIndex = serverNo_index });

@@ -62,6 +62,7 @@ namespace ResponseSystem.Business
             {
                 responseText =  Regex.Replace(responseText, @"\d{2,}", "*");
                 responseText = Regex.Replace(responseText, @"\d", "*");
+                responseText = responseText.ToLower().Trim().TrimEnd('.');
                 var matchedFormat = formatDetails.Where(p=>p.Format == responseText).FirstOrDefault<ResponseFormatDetail>();
                 return matchedFormat;
             }
